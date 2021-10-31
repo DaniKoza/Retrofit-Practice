@@ -1,5 +1,6 @@
 package com.danikoza.retrofitpractice
 
+
 data class Todo(
     val completed: Boolean,
     val id: Int,

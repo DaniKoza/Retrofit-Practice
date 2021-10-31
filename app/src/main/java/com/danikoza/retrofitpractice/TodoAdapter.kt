@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.danikoza.retrofitpractice.databinding.ActivityMainBinding
 import com.danikoza.retrofitpractice.databinding.ItemTodoBinding
 
 class TodoAdapter : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
@@ -25,18 +24,17 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
     private val differ = AsyncListDiffer(this, diffCallback)
     var todos: List<Todo>
         get() = differ.currentList
-        set(value) {
-            differ.submitList(value)
-        }
+        set(value) { differ.submitList(value) }
+
+    override fun getItemCount() = todos.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
         return TodoViewHolder(
             ItemTodoBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        ))
     }
 
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
@@ -45,9 +43,5 @@ class TodoAdapter : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
             tvTitle.text = todo.title
             cbDone.isChecked = todo.completed
         }
-    }
-
-    override fun getItemCount(): Int {
-        return todos.size
     }
 }
